@@ -46,5 +46,7 @@ namespace prsnet.Models {
         public DateTime? DateUpdated { get; set; } = null;
 
         public int? UpdatedBy { get; set; } = null;
+
+        public virtual List<RequestLine> Reqlines { get; set; }
     }
 }
