@@ -15,6 +15,29 @@ namespace prsnet.Controllers {
         private PrsDbContext db = new PrsDbContext();
 
         [HttpGet]
+        [ActionName("Review")]
+        public JsonResponse Review(int? prid) {
+            if(prid == null)
+                return JsonResponse.IdNotFound("Request", prid);
+            var request = db.Requests.Find(prid);
+            request.Status = (request.Total <= 50)
+                ? prsnet.Models.Request.APPROVED
+                : prsnet.Models.Request.REVIEW;
+            db.SaveChanges();
+            return JsonResponse.Ok(request);
+        }
+
+        [HttpGet]
+        [ActionName("Reviewlist")]
+        public JsonResponse GetRequestsForReview(int? userid) {
+            var requests = db.Requests.Where(r => r.Status == "REVIEW").ToList();
+            if(userid != null) {
+                requests = requests.Where(u => u.UserId != userid).ToList();
+            }
+            return JsonResponse.Ok(requests);
+        }
+
+        [HttpGet]
         [ActionName("List")]
         public JsonResponse GetRequests() {
             return JsonResponse.Ok(db.Requests.ToList());

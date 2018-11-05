@@ -21,6 +21,7 @@ namespace prsnet.Controllers
                 .Where(rl => rl.RequestId == id)
                 .Sum(rli => rli.Product.Price * rli.Quantity);
             request.Total = total;
+            request.Status = prsnet.Models.Request.CHANGED;
             db.Entry(request).State = EntityState.Modified;
             db.SaveChanges();
         }
@@ -53,6 +54,9 @@ namespace prsnet.Controllers
 
             if(!ModelState.IsValid)
                 return JsonResponse.ModelStateError(ModelState.Values);
+
+            requestLine.Product = null;
+            requestLine.Request = null;
 
             db.RequestLines.Add(requestLine);
             db.SaveChanges();

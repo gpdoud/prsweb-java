@@ -16,6 +16,18 @@ namespace prsnet
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "GetReviewRequestApi",
+                routeTemplate: "api/{controller}/Review/{prid}"
+            //defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GetRequestsReviewlistApi",
+                routeTemplate: "api/{controller}/Reviewlist/{userid}"
+            //defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "LoginApi",
                 routeTemplate: "api/{controller}/{action}/{username}/{password}"
                 //defaults: new { id = RouteParameter.Optional }

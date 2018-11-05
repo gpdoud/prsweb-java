@@ -8,6 +8,7 @@ namespace prsnet.Models {
     public class Request {
 
         public readonly static string NEW = "NEW";
+        public readonly static string CHANGED = "CHANGED";
         public readonly static string REVIEW = "REVIEW";
         public readonly static string APPROVED = "APPROVED";
         public readonly static string REJECTED = "REJECTED";
